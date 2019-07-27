@@ -21,7 +21,7 @@ const {
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#779ce6'
+      main: '#f00'
     },
     secondary: {
       main: '#19857b'
@@ -33,7 +33,7 @@ const theme = createMuiTheme({
       main: colors.red.A400
     },
     background: {
-      default: '#ccc'
+      default: '#aaa'
     }
   }
 });
@@ -48,13 +48,18 @@ const useStyles = makeStyles(theme => ({
     padding: '0'
   },
   container: {
-    color: 'white',
+    marginTop: '25%',
+    display: 'flex',
+    justifyContent: 'center',
+    textAlign: 'center'
+  },
+  footer: {
     fontSize: 'inherit',
-    flex: 1,
+    marginTop: '30px',
     width: '100%',
     height: '100%',
     display: 'flex',
-    flexDirection: 'column'
+    justifyContent: 'center'
   }
 }));
 
@@ -74,23 +79,25 @@ const Footer = () => {
   const classes = useStyles();
 
   return (
-    <Container textAlign='center' margin={3}>
-      <Typography>&copy; 2019 picklu</Typography>
-    </Container>
+    <Box className={classes.footer}>
+      <Typography variant='caption'>&copy; 2019 picklu</Typography>
+    </Box>
   );
 };
 
 // Drum Machine
-const DrumMachine = () => (
-  <Box>
-    <Typography variant='h3'>
-      Hello, World!
-    </Typography>
-    <Typography variant='p'>
-      Under development
-    </Typography>
-  </Box>
-)
+const DrumMachine = () => {
+  const classes = useStyles();
+
+  return (
+    <Container className={classes.container}>
+      <Box>
+        <Typography variant='h3'>Hello, World!</Typography>
+        <Typography variant='body1'>Under development</Typography>
+      </Box>
+    </Container>
+  );
+};
 
 // Main app
 const App = () => {
