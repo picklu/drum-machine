@@ -39,19 +39,29 @@ const theme = createMuiTheme({
 });
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    backgroundColor: 'white',
+  drumMachine: {
+    backgroundColor: '#aaa',
+    border: '2px solid #555',
     fontSize: '1.5rem',
     height: '500px',
+    maxWidth: '500px',
+    margin: 'auto',
     marginTop: '100px',
     display: 'flex',
-    padding: '0'
-  },
-  container: {
-    marginTop: '25%',
+    padding: '0',
     display: 'flex',
-    justifyContent: 'center',
-    textAlign: 'center'
+    flexDirection: 'column'
+  },
+  display: {
+    backgroundColor: '#9e9',
+    border: '3px solid #555',
+    padding: '10px'
+  },
+  drumPad: {
+    backgroundColor: '#eee',
+    border: '3px solid #555',
+    height: '100%',
+    padding: '10px'
   },
   footer: {
     fontSize: 'inherit',
@@ -90,10 +100,12 @@ const DrumMachine = () => {
   const classes = useStyles();
 
   return (
-    <Container className={classes.container}>
-      <Box>
-        <Typography variant='h3'>Hello, World!</Typography>
-        <Typography variant='body1'>Under development</Typography>
+    <Container id='drum-machine' className={classes.drumMachine}>
+      <Box id='display' className={classes.display}>
+        <Typography variant='h3'>display</Typography>
+      </Box>
+      <Box id='drum-pad' className={classes.drumPad}>
+        <Typography variant='h3'>drum pad</Typography>
       </Box>
     </Container>
   );
