@@ -41,36 +41,34 @@ const theme = createMuiTheme({
 const useStyles = makeStyles(theme => ({
   drumMachine: {
     backgroundColor: theme.palette.primary.main,
-    borderRadius: '3px',
+    borderRadius: theme.spacing(0.5),
     boxShadow: '3px 5px 10px #222',
     fontSize: '1.5rem',
-    height: '500px',
-    maxWidth: '500px',
+    height: theme.spacing(50),
+    maxWidth: theme.spacing(50),
     margin: 'auto',
-    marginTop: '100px',
-    display: 'flex',
-    padding: '30px',
+    marginTop: theme.spacing(10),
+    padding: theme.spacing(3),
     display: 'flex',
     flexDirection: 'column'
   },
   display: {
     backgroundColor: theme.palette.secondary.main,
     borderRadius: 'inherit',
-    marginBottom: '30px',
-    padding: '10px'
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(1)
   },
   drumPad: {
     borderRadius: 'inherit',
     height: '100%',
-    padding: '10px'
+    padding: theme.spacing(1)
   },
   enclose: {
     border: `2px solid ${theme.palette.tertiary.main}`
   },
   footer: {
     fontSize: 'inherit',
-    marginTop: '30px',
-    width: '100%',
+    marginTop: theme.spacing(3),
     height: '100%',
     display: 'flex',
     justifyContent: 'center'
