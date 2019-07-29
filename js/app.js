@@ -154,10 +154,7 @@ const DrumMachine = () => {
     });
   };
 
-  const handleClick = event => {
-    event.stopPropagation();
-    pauseAllAudio();
-    const audioPlayer = event.target.querySelector('.clip');
+  const playAudio = audioPlayer => {
     const description = document.querySelector('#description');
     audioPlayer
       .play()
@@ -168,6 +165,33 @@ const DrumMachine = () => {
         description.innerText = error;
       });
   };
+
+  const handleKeyDown = event => {
+    const whichKey = event.which || event.keyCode;
+    const char = String.fromCharCode(whichKey);
+
+    pauseAllAudio();
+
+    document.querySelectorAll('.clip').forEach(item => {
+      if (item.id === char) {
+        playAudio(item);
+      }
+    });
+  };
+
+  const handleClick = event => {
+    event.stopPropagation();
+    pauseAllAudio();
+    const audioPlayer = event.target.querySelector('.clip');
+    playAudio(audioPlayer);
+  };
+
+  React.useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   return (
     <Container id='drum-machine' className={classes.drumMachine}>
