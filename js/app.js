@@ -21,7 +21,7 @@ const {
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: colors.grey[500]
+      main: colors.grey[400]
     },
     secondary: {
       main: colors.green.A400
@@ -55,15 +55,17 @@ const useStyles = makeStyles(theme => ({
   },
   display: {
     backgroundColor: theme.palette.secondary.main,
-    borderRadius: '5px inset #555',
+    borderRadius: 'inherit',
     marginBottom: '30px',
     padding: '10px'
   },
   drumPad: {
-    backgroundColor: theme.palette.tertiary.main,
     borderRadius: 'inherit',
     height: '100%',
     padding: '10px'
+  },
+  enclose: {
+    border: `2px solid ${theme.palette.tertiary.main}`
   },
   footer: {
     fontSize: 'inherit',
@@ -103,10 +105,10 @@ const DrumMachine = () => {
 
   return (
     <Container id='drum-machine' className={classes.drumMachine}>
-      <Box id='display' className={classes.display}>
+      <Box id='display' className={clsx(classes.enclose, classes.display)}>
         <Typography variant='h3'>display</Typography>
       </Box>
-      <Box id='drum-pad' className={classes.drumPad}>
+      <Box id='drum-pad' className={clsx(classes.enclose, classes.drumPad)}>
         <Typography variant='h3'>drum pad</Typography>
       </Box>
     </Container>
