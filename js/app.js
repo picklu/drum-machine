@@ -42,10 +42,11 @@ const theme = createMuiTheme({
 const useStyles = makeStyles(theme => ({
   drumMachine: {
     backgroundColor: theme.palette.primary.main,
+    border: '1px solid #777',
     borderRadius: theme.spacing(0.5),
     boxShadow: '3px 5px 10px #222',
     fontSize: '1.5rem',
-    height: theme.spacing(50),
+    // height: theme.spacing(50),
     maxWidth: theme.spacing(50),
     margin: 'auto',
     marginTop: theme.spacing(10),
@@ -61,14 +62,13 @@ const useStyles = makeStyles(theme => ({
   },
   drumPad: {
     borderRadius: 'inherit',
-    height: '100%',
-    padding: theme.spacing(1)
+    padding: theme.spacing(1),
   },
   enclose: {
     border: `2px solid ${theme.palette.tertiary.main}`
   },
   button: {
-    marginRight: theme.spacing(1),
+    margin: theme.spacing(.5),
     width: '30%'
   },
   footer: {
@@ -103,11 +103,17 @@ const Footer = () => {
 };
 
 // buttons label
-const buttons = ['q', 'w', 'e', 'a', 's', 'd', 'z', 'x', 'c'];
+const buttons = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C'];
 
 // Drum Machine
 const DrumMachine = () => {
   const classes = useStyles();
+
+  const handleClick = (e) => {
+    e.stopPropagation();
+    const audioPlayer = e.target.querySelector('.clip');
+    audioPlayer.play();
+  }
 
   return (
     <Container id='drum-machine' className={classes.drumMachine}>
@@ -115,17 +121,20 @@ const DrumMachine = () => {
         <Typography variant='h3'>display</Typography>
       </Box>
       <Box id='drum-pad' className={clsx(classes.enclose, classes.drumPad)}>
-        <Typography variant='h3'>
           {buttons.map((item, index) => (
             <Button
               variant='contained'
-              className={classes.button}
+              id={`drum-pad-${item}`}
+              className={clsx('drum-pad', classes.button)}
               key={`button-${index}`}
+              onClick={handleClick}
             >
+              <audio id={item} className='clip' src="http://audiosoundclips.com/wp-content/uploads/2011/12/Drum1.mp3" type="audio/mpeg">
+                Your browser does not support the audio tag.
+              </audio>
               {item}
             </Button>
           ))}
-        </Typography>
       </Box>
     </Container>
   );
