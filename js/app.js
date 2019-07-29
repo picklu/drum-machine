@@ -148,7 +148,7 @@ const buttons = {
 const DrumMachine = () => {
   const classes = useStyles();
 
-  const stopAll = () => {
+  const pauseAllAudio = () => {
     document.querySelectorAll('audio').forEach(item => {
       item.pause();
     });
@@ -156,7 +156,7 @@ const DrumMachine = () => {
 
   const handleClick = event => {
     event.stopPropagation();
-    stopAll();
+    pauseAllAudio();
     const audioPlayer = event.target.querySelector('.clip');
     const description = document.querySelector('#description');
     audioPlayer
