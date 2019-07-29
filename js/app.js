@@ -22,13 +22,13 @@ const {
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: colors.grey[400]
+      main: colors.grey[700]
     },
     secondary: {
-      main: colors.green.A400
+      main: colors.grey[500]
     },
     tertiary: {
-      main: colors.grey[600]
+      main: colors.green.A400
     },
     error: {
       main: colors.red.A400
@@ -41,12 +41,11 @@ const theme = createMuiTheme({
 
 const useStyles = makeStyles(theme => ({
   drumMachine: {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.secondary.main,
     border: '1px solid #777',
     borderRadius: theme.spacing(0.5),
     boxShadow: '3px 5px 10px #222',
     fontSize: '1.5rem',
-    // height: theme.spacing(50),
     maxWidth: theme.spacing(50),
     margin: 'auto',
     marginTop: theme.spacing(10),
@@ -55,20 +54,23 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column'
   },
   display: {
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.tertiary.main,
     borderRadius: 'inherit',
     marginBottom: theme.spacing(3),
     padding: theme.spacing(1)
   },
+  description: {
+    textAlign: 'center'
+  },
   drumPad: {
     borderRadius: 'inherit',
-    padding: theme.spacing(1),
+    padding: theme.spacing(1)
   },
   enclose: {
-    border: `2px solid ${theme.palette.tertiary.main}`
+    border: `2px solid ${theme.palette.primary.main}`
   },
   button: {
-    margin: theme.spacing(.5),
+    margin: theme.spacing(0.5),
     width: '30%'
   },
   footer: {
@@ -103,38 +105,102 @@ const Footer = () => {
 };
 
 // buttons label
-const buttons = ['Q', 'W', 'E', 'A', 'S', 'D', 'Z', 'X', 'C'];
+const buttons = {
+  Q: {
+    description: 'drum Q',
+    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum1.mp3'
+  },
+  W: {
+    description: 'drum W',
+    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum1.mp3'
+  },
+  E: {
+    description: 'drum E',
+    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum1.mp3'
+  },
+  A: {
+    description: 'drum A',
+    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum1.mp3'
+  },
+  S: {
+    description: 'drum S',
+    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum1.mp3'
+  },
+  D: {
+    description: 'drum D',
+    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum1.mp3'
+  },
+  Z: {
+    description: 'drum Z',
+    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum1.mp3'
+  },
+  X: {
+    description: 'drum X',
+    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum1.mp3'
+  },
+  C: {
+    description: 'drum C',
+    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum1.mp3'
+  }
+};
 
 // Drum Machine
 const DrumMachine = () => {
   const classes = useStyles();
 
-  const handleClick = (e) => {
-    e.stopPropagation();
-    const audioPlayer = e.target.querySelector('.clip');
-    audioPlayer.play();
-  }
+  const stopAll = () => {
+    document.querySelectorAll('audio').forEach(item => {
+      item.pause();
+    });
+  };
+
+  const handleClick = event => {
+    event.stopPropagation();
+    stopAll();
+    const audioPlayer = event.target.querySelector('.clip');
+    const description = document.querySelector('#description');
+    audioPlayer
+      .play()
+      .then(() => {
+        description.innerText = buttons[audioPlayer.id].description;
+      })
+      .catch(error => {
+        description.innerText = error;
+      });
+  };
 
   return (
     <Container id='drum-machine' className={classes.drumMachine}>
       <Box id='display' className={clsx(classes.enclose, classes.display)}>
-        <Typography variant='h3'>display</Typography>
+        <Typography
+          id='description'
+          variant='subtitle2'
+          className={classes.description}
+        >
+          ***
+        </Typography>
       </Box>
       <Box id='drum-pad' className={clsx(classes.enclose, classes.drumPad)}>
-          {buttons.map((item, index) => (
-            <Button
-              variant='contained'
-              id={`drum-pad-${item}`}
-              className={clsx('drum-pad', classes.button)}
-              key={`button-${index}`}
-              onClick={handleClick}
+        {Object.keys(buttons).map((item, index) => (
+          <Button
+            variant='contained'
+            color='primary'
+            id={`drum-pad-${item}`}
+            className={clsx('drum-pad', classes.button)}
+            key={`button-${index}`}
+            onClick={handleClick}
+          >
+            <audio
+              id={item}
+              className='clip'
+              src={buttons[item]['src']}
+              type='audio/mpeg'
             >
-              <audio id={item} className='clip' src="http://audiosoundclips.com/wp-content/uploads/2011/12/Drum1.mp3" type="audio/mpeg">
-                Your browser does not support the audio tag.
-              </audio>
-              {item}
-            </Button>
-          ))}
+              Your browser does not support the audio tag.
+            </audio>
+            {item}
+          </Button>
+        ))}
       </Box>
     </Container>
   );
