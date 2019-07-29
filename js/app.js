@@ -21,45 +21,47 @@ const {
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#f00'
+      main: colors.grey[500]
     },
     secondary: {
-      main: '#19857b'
+      main: colors.green.A400
     },
     tertiary: {
-      main: 'ff2255'
+      main: colors.grey[600]
     },
     error: {
       main: colors.red.A400
     },
     background: {
-      default: '#aaa'
+      default: colors.grey[50]
     }
   }
 });
 
 const useStyles = makeStyles(theme => ({
   drumMachine: {
-    backgroundColor: '#aaa',
-    border: '2px solid #555',
+    backgroundColor: theme.palette.primary.main,
+    borderRadius: '3px',
+    boxShadow: '3px 5px 10px #222',
     fontSize: '1.5rem',
     height: '500px',
     maxWidth: '500px',
     margin: 'auto',
     marginTop: '100px',
     display: 'flex',
-    padding: '0',
+    padding: '30px',
     display: 'flex',
     flexDirection: 'column'
   },
   display: {
-    backgroundColor: '#9e9',
-    border: '3px solid #555',
+    backgroundColor: theme.palette.secondary.main,
+    borderRadius: '5px inset #555',
+    marginBottom: '30px',
     padding: '10px'
   },
   drumPad: {
-    backgroundColor: '#eee',
-    border: '3px solid #555',
+    backgroundColor: theme.palette.tertiary.main,
+    borderRadius: 'inherit',
     height: '100%',
     padding: '10px'
   },
