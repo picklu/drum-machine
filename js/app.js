@@ -12,6 +12,7 @@ const {
   makeStyles,
   createMuiTheme,
   Box,
+  Button,
   Input,
   Icon,
   Link,
@@ -66,6 +67,10 @@ const useStyles = makeStyles(theme => ({
   enclose: {
     border: `2px solid ${theme.palette.tertiary.main}`
   },
+  button: {
+    marginRight: theme.spacing(1),
+    width: '30%'
+  },
   footer: {
     fontSize: 'inherit',
     marginTop: theme.spacing(3),
@@ -97,6 +102,9 @@ const Footer = () => {
   );
 };
 
+// buttons label
+const buttons = ['q', 'w', 'e', 'a', 's', 'd', 'z', 'x', 'c'];
+
 // Drum Machine
 const DrumMachine = () => {
   const classes = useStyles();
@@ -107,7 +115,17 @@ const DrumMachine = () => {
         <Typography variant='h3'>display</Typography>
       </Box>
       <Box id='drum-pad' className={clsx(classes.enclose, classes.drumPad)}>
-        <Typography variant='h3'>drum pad</Typography>
+        <Typography variant='h3'>
+          {buttons.map((item, index) => (
+            <Button
+              variant='contained'
+              className={classes.button}
+              key={`button-${index}`}
+            >
+              {item}
+            </Button>
+          ))}
+        </Typography>
       </Box>
     </Container>
   );
