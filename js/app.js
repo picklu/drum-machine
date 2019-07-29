@@ -25,7 +25,7 @@ const theme = createMuiTheme({
       main: colors.grey[700]
     },
     secondary: {
-      main: colors.grey[500]
+      main: colors.grey[400]
     },
     tertiary: {
       main: colors.green.A400
