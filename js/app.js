@@ -57,9 +57,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.tertiary.main,
     borderRadius: 'inherit',
     marginBottom: theme.spacing(3),
-    padding: theme.spacing(1)
-  },
-  description: {
+    padding: theme.spacing(1),
     textAlign: 'center'
   },
   drumPad: {
@@ -155,7 +153,7 @@ const DrumMachine = () => {
   };
 
   const playAudio = audioPlayer => {
-    const description = document.querySelector('#description');
+    const description = document.querySelector('#display');
     audioPlayer
       .play()
       .then(() => {
@@ -195,15 +193,13 @@ const DrumMachine = () => {
 
   return (
     <Container id='drum-machine' className={classes.drumMachine}>
-      <Box id='display' className={clsx(classes.enclose, classes.display)}>
-        <Typography
-          id='description'
-          variant='subtitle2'
-          className={classes.description}
-        >
-          ***
-        </Typography>
-      </Box>
+      <Typography
+        id='display'
+        variant='subtitle2'
+        className={clsx(classes.enclose, classes.display)}
+      >
+        ***
+      </Typography>
       <Box id='drum-pad' className={clsx(classes.enclose, classes.drumPad)}>
         {Object.keys(buttons).map((item, index) => (
           <Button
