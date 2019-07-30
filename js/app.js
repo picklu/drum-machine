@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
     boxShadow: '3px 5px 10px #222',
     fontSize: '1.5rem',
     maxWidth: theme.spacing(60),
-    minWidth: theme.spacing(40),
+    // minWidth: theme.spacing(40),
     margin: 'auto',
     marginTop: theme.spacing(10),
     padding: theme.spacing(3),
@@ -63,12 +63,9 @@ const useStyles = makeStyles(theme => ({
   },
   drumPad: {
     borderRadius: 'inherit',
-    padding: theme.spacing(.5),
+    padding: theme.spacing(0.5),
     display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'spaceBetween',
-    alignContent: 'spaceBetween',
-    
+    flexWrap: 'wrap'
   },
   enclose: {
     border: `2px solid ${theme.palette.primary.main}`
@@ -76,10 +73,14 @@ const useStyles = makeStyles(theme => ({
   buttonContainer: {
     boxSizing: 'borderBox',
     flexBasis: '33.333%',
-    padding: theme.spacing(.5),
-    display: 'flex'
-  }, 
+    padding: theme.spacing(0.5),
+    display: 'flex',
+    margin: 'auto'
+  },
   button: {
+    fontSize: theme.spacing(2.5),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
     height: '100%',
     width: '100%'
   },
@@ -216,23 +217,23 @@ const DrumMachine = () => {
         {Object.keys(buttons).map((item, index) => (
           <Box className={classes.buttonContainer}>
             <Button
-            variant='contained'
-            color='primary'
-            id={`drum-pad-${item}`}
-            className={clsx('drum-pad', classes.button)}
-            key={`button-${index}`}
-            onClick={handleClick}
-          >
-            <audio
-              id={item}
-              className='clip'
-              src={buttons[item]['src']}
-              type='audio/mpeg'
+              variant='contained'
+              color='primary'
+              id={`drum-pad-${item}`}
+              className={clsx('drum-pad', classes.button)}
+              key={`button-${index}`}
+              onClick={handleClick}
             >
-              Your browser does not support the audio tag.
-            </audio>
-            {item}
-          </Button>
+              <audio
+                id={item}
+                className='clip'
+                src={buttons[item]['src']}
+                type='audio/mpeg'
+              >
+                Your browser does not support the audio tag.
+              </audio>
+              {item}
+            </Button>
           </Box>
         ))}
       </Box>
