@@ -161,10 +161,6 @@ const DrumMachine = () => {
   const [displayText, setDisplayText] = React.useState('***');
   const classes = useStyles();
 
-  const sleep = ms => {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  };
-
   const pauseAllAudio = () => {
     document.querySelectorAll('audio').forEach(item => {
       item.pause();
@@ -184,15 +180,10 @@ const DrumMachine = () => {
   };
 
   const handleKeyDown = async event => {
-    const whichKey = event.which || event.keyCode;
-    const id = String.fromCharCode(whichKey);
-    const audioPlayer = document.getElementById(id);
-    if (audioPlayer) {
-      const button = document.getElementById(`drum-pad-${id}`);
-      playAudio(audioPlayer);
-      button.focus();
-      await sleep(100);
-      button.blur();
+    const id = String.fromCharCode(event.which || event.keyCode);
+    const button = document.getElementById(`drum-pad-${id}`);
+    if (button) {
+      button.click();
     } else {
       pauseAllAudio();
     }
