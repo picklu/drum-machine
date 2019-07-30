@@ -46,7 +46,8 @@ const useStyles = makeStyles(theme => ({
     borderRadius: theme.spacing(0.5),
     boxShadow: '3px 5px 10px #222',
     fontSize: '1.5rem',
-    maxWidth: theme.spacing(50),
+    maxWidth: theme.spacing(60),
+    minWidth: theme.spacing(40),
     margin: 'auto',
     marginTop: theme.spacing(10),
     padding: theme.spacing(3),
@@ -62,14 +63,25 @@ const useStyles = makeStyles(theme => ({
   },
   drumPad: {
     borderRadius: 'inherit',
-    padding: theme.spacing(1)
+    padding: theme.spacing(.5),
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'spaceBetween',
+    alignContent: 'spaceBetween',
+    
   },
   enclose: {
     border: `2px solid ${theme.palette.primary.main}`
   },
+  buttonContainer: {
+    boxSizing: 'borderBox',
+    flexBasis: '33.333%',
+    padding: theme.spacing(.5),
+    display: 'flex'
+  }, 
   button: {
-    margin: theme.spacing(0.5),
-    width: '30%'
+    height: '100%',
+    width: '100%'
   },
   footer: {
     fontSize: 'inherit',
@@ -202,7 +214,8 @@ const DrumMachine = () => {
       </Typography>
       <Box id='drum-pad' className={clsx(classes.enclose, classes.drumPad)}>
         {Object.keys(buttons).map((item, index) => (
-          <Button
+          <Box className={classes.buttonContainer}>
+            <Button
             variant='contained'
             color='primary'
             id={`drum-pad-${item}`}
@@ -220,6 +233,7 @@ const DrumMachine = () => {
             </audio>
             {item}
           </Button>
+          </Box>
         ))}
       </Box>
     </Container>
