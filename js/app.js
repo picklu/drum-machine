@@ -22,7 +22,7 @@ const {
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: colors.grey[700]
+      main: colors.grey[900]
     },
     secondary: {
       main: colors.grey[400]
@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
     boxShadow: '3px 5px 10px #222',
     fontSize: '1.5rem',
     maxWidth: theme.spacing(60),
-    // minWidth: theme.spacing(40),
+    minWidth: theme.spacing(20),
     margin: 'auto',
     marginTop: theme.spacing(10),
     padding: theme.spacing(3),
@@ -79,7 +79,7 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     fontSize: theme.spacing(2.5),
-    paddingTop: theme.spacing(2),
+    paddingTop: theme.spacing(2.8),
     paddingBottom: theme.spacing(2),
     height: '100%',
     width: '100%'
