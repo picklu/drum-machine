@@ -115,43 +115,44 @@ const Footer = () => {
   );
 };
 
-// buttons label
+// Drum Sound Effect & Loops in MP3 Format
+// Source: http://audiosoundclips.com
 const buttons = {
   Q: {
-    description: 'drum Q',
+    description: 'Drum sound effect loop 1',
     src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum1.mp3'
   },
   W: {
-    description: 'drum W',
-    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum1.mp3'
+    description: 'Drum sound effect loop 2',
+    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum2.mp3'
   },
   E: {
-    description: 'drum E',
-    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum1.mp3'
+    description: 'Drum sound effect loop 3',
+    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum3.mp3'
   },
   A: {
-    description: 'drum A',
-    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum1.mp3'
+    description: 'Drum sound effect loop 4',
+    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum4.mp3'
   },
   S: {
-    description: 'drum S',
-    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum1.mp3'
+    description: 'Drum sound effect loop 5',
+    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum5.mp3'
   },
   D: {
-    description: 'drum D',
-    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum1.mp3'
+    description: 'Drum sound effect loop 6',
+    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum6.mp3'
   },
   Z: {
-    description: 'drum Z',
-    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum1.mp3'
+    description: 'Drum sound effect loop 7',
+    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum7.mp3'
   },
   X: {
-    description: 'drum X',
-    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum1.mp3'
+    description: 'Drum sound effect loop 8',
+    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum8.mp3'
   },
   C: {
-    description: 'drum C',
-    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum1.mp3'
+    description: 'Drum sound effect loop 9',
+    src: 'http://audiosoundclips.com/wp-content/uploads/2011/12/Drum9.mp3'
   }
 };
 
