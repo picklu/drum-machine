@@ -158,7 +158,12 @@ const buttons = {
 
 // Drum Machine
 const DrumMachine = () => {
+  const [displayText, setDisplayText] = React.useState('***');
   const classes = useStyles();
+
+  const sleep = ms => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  };
 
   const pauseAllAudio = () => {
     document.querySelectorAll('audio').forEach(item => {
@@ -167,33 +172,34 @@ const DrumMachine = () => {
   };
 
   const playAudio = audioPlayer => {
-    const description = document.querySelector('#display');
+    pauseAllAudio();
     audioPlayer
       .play()
       .then(() => {
-        description.innerText = buttons[audioPlayer.id].description;
+        setDisplayText(buttons[audioPlayer.id].description);
       })
       .catch(error => {
-        description.innerText = error;
+        setDisplayText(error);
       });
   };
 
-  const handleKeyDown = event => {
+  const handleKeyDown = async event => {
     const whichKey = event.which || event.keyCode;
-    const char = String.fromCharCode(whichKey);
-
-    pauseAllAudio();
-
-    document.querySelectorAll('.clip').forEach(item => {
-      if (item.id === char) {
-        playAudio(item);
-      }
-    });
+    const id = String.fromCharCode(whichKey);
+    const audioPlayer = document.getElementById(id);
+    if (audioPlayer) {
+      const button = document.getElementById(`drum-pad-${id}`);
+      playAudio(audioPlayer);
+      button.focus();
+      await sleep(100);
+      button.blur();
+    } else {
+      pauseAllAudio();
+    }
   };
 
-  const handleClick = event => {
-    event.stopPropagation();
-    pauseAllAudio();
+  const handleClick = async event => {
+    event.persist();
     const audioPlayer = event.target.querySelector('.clip');
     playAudio(audioPlayer);
   };
@@ -212,11 +218,14 @@ const DrumMachine = () => {
         variant='subtitle2'
         className={clsx(classes.enclose, classes.display)}
       >
-        ***
+        {displayText}
       </Typography>
       <Box id='drum-pad' className={clsx(classes.enclose, classes.drumPad)}>
         {Object.keys(buttons).map((item, index) => (
-          <Box className={classes.buttonContainer}>
+          <Box
+            className={classes.buttonContainer}
+            key={`drum-pad-container${item}`}
+          >
             <Button
               variant='contained'
               color='primary'
@@ -230,6 +239,7 @@ const DrumMachine = () => {
                 className='clip'
                 src={buttons[item]['src']}
                 type='audio/mpeg'
+                key={`audio-${index}`}
               >
                 Your browser does not support the audio tag.
               </audio>
