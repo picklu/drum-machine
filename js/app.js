@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
     border: '1px solid #777',
     borderRadius: theme.spacing(0.5),
     boxShadow: '3px 5px 10px #222',
-    fontSize: '1.5rem',
+    fontSize: '1.2rem',
     maxWidth: theme.spacing(60),
     minWidth: theme.spacing(20),
     margin: 'auto',
@@ -82,7 +82,16 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(2.8),
     paddingBottom: theme.spacing(2),
     height: '100%',
-    width: '100%'
+    width: '100%',
+    transition: theme.transitions.create(
+      ['background-color', 'box-shadow', 'border'],
+      {
+        duration: theme.transitions.duration.short
+      }
+    ),
+    '&:active': {
+      backgroundColor: theme.palette.tertiary.main
+    }
   },
   footer: {
     fontSize: 'inherit',
@@ -190,7 +199,7 @@ const DrumMachine = () => {
   };
 
   const handleClick = async event => {
-    event.persist();
+    // event.persist();
     const audioPlayer = event.target.querySelector('.clip');
     playAudio(audioPlayer);
   };
@@ -204,13 +213,14 @@ const DrumMachine = () => {
 
   return (
     <Container id='drum-machine' className={classes.drumMachine}>
-      <Typography
+      <Box
         id='display'
-        variant='subtitle2'
+        component='p'
+        display='block'
         className={clsx(classes.enclose, classes.display)}
       >
         {displayText}
-      </Typography>
+      </Box>
       <Box id='drum-pad' className={clsx(classes.enclose, classes.drumPad)}>
         {Object.keys(buttons).map((item, index) => (
           <Box
@@ -224,6 +234,7 @@ const DrumMachine = () => {
               className={clsx('drum-pad', classes.button)}
               key={`button-${index}`}
               onClick={handleClick}
+              disableRipple={true}
             >
               <audio
                 id={item}
