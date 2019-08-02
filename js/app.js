@@ -167,7 +167,7 @@ const buttons = {
 
 // Drum Machine
 const DrumMachine = () => {
-  const [displayText, setDisplayText] = React.useState('***');
+  const [displayText, setDisplayText] = React.useState('...');
   const classes = useStyles();
 
   const pauseAllAudio = () => {
@@ -190,7 +190,7 @@ const DrumMachine = () => {
 
   const handleKeyDown = async event => {
     const id = String.fromCharCode(event.which || event.keyCode);
-    const button = document.getElementById(`drum-pad-${id}`);
+    const button = document.getElementById('drum-pad-' + id);
     if (button) {
       button.click();
     } else {
@@ -225,15 +225,15 @@ const DrumMachine = () => {
         {Object.keys(buttons).map((item, index) => (
           <Box
             className={classes.buttonContainer}
-            key={`drum-pad-container${item}`}
+            key={'drum-pad-container-' + item}
+            onClick={handleClick}
           >
             <Button
               variant='contained'
               color='primary'
-              id={`drum-pad-${item}`}
+              id={'drum-pad-' + item}
               className={clsx('drum-pad', classes.button)}
-              key={`button-${index}`}
-              onClick={handleClick}
+              key={'button-' + index}
               disableRipple={true}
             >
               <audio
@@ -241,7 +241,7 @@ const DrumMachine = () => {
                 className='clip'
                 src={buttons[item]['src']}
                 type='audio/mpeg'
-                key={`audio-${index}`}
+                key={'audio-' + index}
               >
                 Your browser does not support the audio tag.
               </audio>
