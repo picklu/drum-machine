@@ -54,6 +54,9 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column'
   },
+  control: {
+    borderRadius: 'inherit'
+  },
   display: {
     backgroundColor: theme.palette.tertiary.main,
     borderRadius: 'inherit',
@@ -214,13 +217,15 @@ const DrumMachine = () => {
 
   return (
     <Container id='drum-machine' className={classes.drumMachine}>
-      <Box
-        id='display'
-        component='p'
-        display='block'
-        className={clsx(classes.enclose, classes.display)}
-      >
-        {displayText}
+      <Box id='control' className={classes.control}>
+        <Box
+          id='display'
+          component='p'
+          display='block'
+          className={clsx(classes.enclose, classes.display)}
+        >
+          {displayText}
+        </Box>
       </Box>
       <Box id='drum-pad' className={clsx(classes.enclose, classes.drumPad)}>
         {Object.keys(buttons).map((item, index) => (
