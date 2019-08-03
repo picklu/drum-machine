@@ -182,14 +182,13 @@ const DrumMachine = () => {
 
   const playAudio = audioPlayer => {
     pauseAllAudio();
-    audioPlayer
-      .play()
-      .then(() => {
-        setDisplayText(buttons[audioPlayer.id].description);
-      })
-      .catch(error => {
-        setDisplayText(error);
-      });
+    setDisplayText(buttons[audioPlayer.id].description);
+    const promise = audioPlayer.play();
+    if (promise !== undefined) {
+      promise
+        .then(() => console.log('Played'))
+        .catch(error => console.log(error));
+    }
   };
 
   const handleKeyDown = async event => {
@@ -203,7 +202,7 @@ const DrumMachine = () => {
   };
 
   const handleClick = async event => {
-    // event.persist();
+    event.persist();
     const audioPlayer = event.target.querySelector('.clip');
     playAudio(audioPlayer);
   };
@@ -218,14 +217,14 @@ const DrumMachine = () => {
   return (
     <Container id='drum-machine' className={classes.drumMachine}>
       <Box id='control' className={classes.control}>
-        <Box
+        <Typography
           id='display'
-          component='p'
+          variant='subtitle2'
           display='block'
           className={clsx(classes.enclose, classes.display)}
         >
           {displayText}
-        </Box>
+        </Typography>
       </Box>
       <Box id='drum-pad' className={clsx(classes.enclose, classes.drumPad)}>
         {Object.keys(buttons).map((item, index) => (
@@ -246,7 +245,7 @@ const DrumMachine = () => {
                 id={item}
                 className='clip'
                 src={buttons[item]['src']}
-                // type='audio/mpeg'
+                type='audio/mpeg'
                 key={'audio-' + index}
               >
                 Your browser does not support the audio tag.
