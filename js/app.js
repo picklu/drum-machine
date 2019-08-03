@@ -57,6 +57,7 @@ const useStyles = makeStyles(theme => ({
   display: {
     backgroundColor: theme.palette.tertiary.main,
     borderRadius: 'inherit',
+    margin: theme.spacing(0),
     marginBottom: theme.spacing(3),
     padding: theme.spacing(1),
     textAlign: 'center'
@@ -240,7 +241,7 @@ const DrumMachine = () => {
                 id={item}
                 className='clip'
                 src={buttons[item]['src']}
-                type='audio/mpeg'
+                // type='audio/mpeg'
                 key={'audio-' + index}
               >
                 Your browser does not support the audio tag.
