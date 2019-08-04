@@ -82,6 +82,7 @@ const useStyles = makeStyles(theme => ({
     margin: 'auto'
   },
   button: {
+    color: 'white',
     fontSize: theme.spacing(2.5),
     paddingTop: theme.spacing(2.8),
     paddingBottom: theme.spacing(2),
@@ -92,10 +93,13 @@ const useStyles = makeStyles(theme => ({
       {
         duration: theme.transitions.duration.short
       }
-    ),
-    '&:active': {
-      backgroundColor: theme.palette.tertiary.main
-    }
+    )
+  },
+  active: {
+    backgroundColor: theme.palette.tertiary.main
+  },
+  inactive: {
+    backgroundColor: theme.palette.primary.main
   },
   footer: {
     fontSize: 'inherit',
@@ -171,8 +175,11 @@ const buttons = {
 
 // Drum Machine
 const DrumMachine = () => {
-  const [displayText, setDisplayText] = React.useState('...');
   const classes = useStyles();
+  const [displayText, setDisplayText] = React.useState('...');
+  const [backgroundColor, setBackgroundColor] = React.useState(
+    classes.inactive
+  );
 
   const pauseAllAudio = () => {
     document.querySelectorAll('audio').forEach(item => {
@@ -182,6 +189,7 @@ const DrumMachine = () => {
 
   const playAudio = audioPlayer => {
     pauseAllAudio();
+    setBackgroundColor(classes.active);
     setDisplayText(buttons[audioPlayer.id].description);
     const promise = audioPlayer.play();
     if (promise !== undefined) {
@@ -189,6 +197,7 @@ const DrumMachine = () => {
         .then(() => console.log('Played'))
         .catch(error => console.log(error));
     }
+    setTimeout(() => setBackgroundColor(classes.inactive), 100);
   };
 
   const handleKeyDown = async event => {
@@ -237,7 +246,7 @@ const DrumMachine = () => {
               variant='contained'
               color='primary'
               id={'drum-pad-' + item}
-              className={clsx('drum-pad', classes.button)}
+              className={clsx('drum-pad', classes.button, backgroundColor)}
               key={'button-' + index}
               disableRipple={true}
             >
