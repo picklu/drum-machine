@@ -241,6 +241,24 @@ const DrumpadButton = ({ label, index, handleDrumpadClick, ...props }) => {
   );
 };
 
+// Drumpads
+const Drumpads = ({ handleDrumpadClick }) => {
+  const classes = useStyles();
+
+  return (
+    <Box id='drum-pad' className={clsx(classes.enclose, classes.drumPad)}>
+      {Object.keys(buttons).map((label, index) => (
+        <DrumpadButton
+          key={'drupad-button-' + index}
+          label={label}
+          index={index}
+          handleDrumpadClick={handleDrumpadClick}
+        />
+      ))}
+    </Box>
+  );
+};
+
 // Drum Machine
 const DrumMachine = () => {
   const classes = useStyles();
@@ -288,16 +306,7 @@ const DrumMachine = () => {
   return (
     <Container id='drum-machine' className={classes.drumMachine}>
       <Display displayText={displayText} />
-      <Box id='drum-pad' className={clsx(classes.enclose, classes.drumPad)}>
-        {Object.keys(buttons).map((label, index) => (
-          <DrumpadButton
-            key={'drupad-button-' + index}
-            label={label}
-            index={index}
-            handleDrumpadClick={handleDrumpadClick}
-          />
-        ))}
-      </Box>
+      <Drumpads {...{ handleDrumpadClick }} />
     </Container>
   );
 };
