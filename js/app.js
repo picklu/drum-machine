@@ -22,6 +22,7 @@ const {
 const theme = createMuiTheme({
   palette: {
     primary: {
+      default: colors.grey[800],
       main: colors.grey[900]
     },
     secondary: {
@@ -93,7 +94,13 @@ const useStyles = makeStyles(theme => ({
       {
         duration: theme.transitions.duration.short
       }
-    )
+    ),
+    '&:hover': {
+      backgroundColor: theme.palette.primary.default
+    },
+    '&:active': {
+      backgroundColor: theme.palette.tertiary.main
+    }
   },
   active: {
     backgroundColor: theme.palette.tertiary.main
@@ -191,13 +198,53 @@ const Display = ({ displayText, ...props }) => {
   );
 };
 
+// DrumpadButton
+const DrumpadButton = ({ label, index, handleDrumpadClick, ...props }) => {
+  const classes = useStyles();
+  const [backgroundColor, setBackgroundColor] = React.useState(
+    classes.inactive
+  );
+
+  const handleClick = async event => {
+    event.persist();
+    setBackgroundColor(classes.active);
+    await handleDrumpadClick(event);
+    setTimeout(() => setBackgroundColor(classes.inactive), 200);
+  };
+
+  return (
+    <Box
+      className={classes.buttonContainer}
+      key={'drum-pad-container-' + label}
+      onClick={handleClick}
+    >
+      <Button
+        variant='contained'
+        color='primary'
+        id={'drum-pad-' + label}
+        className={clsx('drum-pad', classes.button, backgroundColor)}
+        key={'button-' + index}
+        disableRipple={true}
+      >
+        <audio
+          id={label}
+          className='clip'
+          src={buttons[label]['src']}
+          type='audio/mpeg'
+          key={'audio-' + index}
+        >
+          Your browser does not support the audio tag.
+        </audio>
+        {label}
+      </Button>
+    </Box>
+  );
+};
+
 // Drum Machine
 const DrumMachine = () => {
   const classes = useStyles();
   const [displayText, setDisplayText] = React.useState('...');
-  const [backgroundColor, setBackgroundColor] = React.useState(
-    classes.inactive
-  );
 
   const pauseAllAudio = () => {
     document.querySelectorAll('audio').forEach(item => {
@@ -207,7 +254,6 @@ const DrumMachine = () => {
 
   const playAudio = audioPlayer => {
     pauseAllAudio();
-    setBackgroundColor(classes.active);
     setDisplayText(buttons[audioPlayer.id].description);
     const promise = audioPlayer.play();
     if (promise !== undefined) {
@@ -215,7 +261,6 @@ const DrumMachine = () => {
         .then(() => console.log('Played'))
         .catch(error => console.log(error));
     }
-    setTimeout(() => setBackgroundColor(classes.inactive), 100);
   };
 
   const handleKeyDown = async event => {
@@ -228,10 +273,9 @@ const DrumMachine = () => {
     }
   };
 
-  const handleClick = async event => {
-    event.persist();
+  const handleDrumpadClick = async event => {
     const audioPlayer = event.target.querySelector('.clip');
-    playAudio(audioPlayer);
+    await playAudio(audioPlayer);
   };
 
   React.useEffect(() => {
@@ -245,32 +289,13 @@ const DrumMachine = () => {
     <Container id='drum-machine' className={classes.drumMachine}>
       <Display displayText={displayText} />
       <Box id='drum-pad' className={clsx(classes.enclose, classes.drumPad)}>
-        {Object.keys(buttons).map((item, index) => (
-          <Box
-            className={classes.buttonContainer}
-            key={'drum-pad-container-' + item}
-            onClick={handleClick}
-          >
-            <Button
-              variant='contained'
-              color='primary'
-              id={'drum-pad-' + item}
-              className={clsx('drum-pad', classes.button, backgroundColor)}
-              key={'button-' + index}
-              disableRipple={true}
-            >
-              <audio
-                id={item}
-                className='clip'
-                src={buttons[item]['src']}
-                type='audio/mpeg'
-                key={'audio-' + index}
-              >
-                Your browser does not support the audio tag.
-              </audio>
-              {item}
-            </Button>
-          </Box>
+        {Object.keys(buttons).map((label, index) => (
+          <DrumpadButton
+            key={'drupad-button-' + index}
+            label={label}
+            index={index}
+            handleDrumpadClick={handleDrumpadClick}
+          />
         ))}
       </Box>
     </Container>
