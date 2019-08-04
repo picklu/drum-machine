@@ -173,6 +173,24 @@ const buttons = {
   }
 };
 
+// Display
+const Display = ({ displayText, ...props }) => {
+  const classes = useStyles();
+
+  return (
+    <Box id='control' className={classes.control}>
+      <Typography
+        id='display'
+        variant='subtitle2'
+        display='block'
+        className={clsx(classes.enclose, classes.display)}
+      >
+        {displayText}
+      </Typography>
+    </Box>
+  );
+};
+
 // Drum Machine
 const DrumMachine = () => {
   const classes = useStyles();
@@ -225,16 +243,7 @@ const DrumMachine = () => {
 
   return (
     <Container id='drum-machine' className={classes.drumMachine}>
-      <Box id='control' className={classes.control}>
-        <Typography
-          id='display'
-          variant='subtitle2'
-          display='block'
-          className={clsx(classes.enclose, classes.display)}
-        >
-          {displayText}
-        </Typography>
-      </Box>
+      <Display displayText={displayText} />
       <Box id='drum-pad' className={clsx(classes.enclose, classes.drumPad)}>
         {Object.keys(buttons).map((item, index) => (
           <Box
